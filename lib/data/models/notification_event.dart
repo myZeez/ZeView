@@ -51,9 +51,12 @@ class NotificationEvent {
       notificationKey: map['notification_key'] as String?,
       groupKey: map['group_key'] as String?,
       packageName: map['package_name'] as String,
-      appLabel: (map['app_label'] as String?) ?? (map['package_name'] as String),
+      appLabel:
+          (map['app_label'] as String?) ?? (map['package_name'] as String),
       eventType: map['event_type'] as String,
-      deviceEventTime: DateTime.fromMillisecondsSinceEpoch(map['device_event_time'] as int),
+      deviceEventTime: DateTime.fromMillisecondsSinceEpoch(
+        map['device_event_time'] as int,
+      ),
       sbnPostTime: map['sbn_post_time'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['sbn_post_time'] as int)
           : null,
@@ -72,7 +75,8 @@ class NotificationEvent {
 
   /// Best available text for this event: prefers the expanded body over the
   /// collapsed one since messaging/email apps often put the fuller content there.
-  String get displayText => (bigText != null && bigText!.trim().isNotEmpty) ? bigText! : (body ?? '');
+  String get displayText =>
+      (bigText != null && bigText!.trim().isNotEmpty) ? bigText! : (body ?? '');
 }
 
 /// Android NotificationListenerService.REASON_* codes we bother to label.
@@ -88,7 +92,7 @@ String removalReasonLabel(int? reason) {
       return 'Ditutup otomatis oleh aplikasi';
     case 10:
     case 11:
-      return 'Ditutup oleh ZeView';
+      return 'Ditutup oleh Zeview';
     case 18:
       return 'Ditunda (snooze)';
     case 19:

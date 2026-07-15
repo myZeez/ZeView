@@ -14,9 +14,17 @@ class NotiViewApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => NotificationRepository(),
       child: MaterialApp(
-        title: 'ZeView',
-        theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true, brightness: Brightness.light),
-        darkTheme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true, brightness: Brightness.dark),
+        title: 'Zeview',
+        theme: ThemeData(
+          colorSchemeSeed: Colors.indigo,
+          useMaterial3: true,
+          brightness: Brightness.light,
+        ),
+        darkTheme: ThemeData(
+          colorSchemeSeed: Colors.indigo,
+          useMaterial3: true,
+          brightness: Brightness.dark,
+        ),
         home: const _RootGate(),
       ),
     );

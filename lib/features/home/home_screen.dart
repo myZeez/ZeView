@@ -18,14 +18,14 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ZeView'),
+        title: const Text('Zeview'),
         actions: [
           IconButton(
             tooltip: 'Terlewat / dihapus',
             icon: const Icon(Icons.history_toggle_off),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const MissedScreen()),
-            ),
+            onPressed: () => Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (_) => const MissedScreen())),
           ),
           IconButton(
             tooltip: 'Pesan WhatsApp terhapus',
@@ -37,9 +37,9 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             tooltip: 'Pengaturan',
             icon: const Icon(Icons.settings_outlined),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const SettingsScreen()),
-            ),
+            onPressed: () => Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
           ),
         ],
       ),
@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
           Icon(Icons.notifications_none, size: 64),
           SizedBox(height: 16),
           Text(
-            'Belum ada notifikasi yang terekam.\nBiarkan ZeView berjalan di latar belakang, '
+            'Belum ada notifikasi yang terekam.\nBiarkan Zeview berjalan di latar belakang, '
             'notifikasi baru akan muncul di sini.',
             textAlign: TextAlign.center,
           ),
@@ -76,9 +76,15 @@ class HomeScreen extends StatelessWidget {
         final app = repo.appSummaries[index];
         return ListTile(
           leading: AppIcon(iconPath: app.iconPath, label: app.appLabel),
-          title: Text(app.appLabel, maxLines: 1, overflow: TextOverflow.ellipsis),
+          title: Text(
+            app.appLabel,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
           subtitle: Text(
-            app.lastText?.trim().isNotEmpty == true ? app.lastText!.trim() : app.packageName,
+            app.lastText?.trim().isNotEmpty == true
+                ? app.lastText!.trim()
+                : app.packageName,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -86,14 +92,26 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(formatRelative(app.lastEventTime), style: Theme.of(context).textTheme.bodySmall),
+              Text(
+                formatRelative(app.lastEventTime),
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
               const SizedBox(height: 4),
-              CircleAvatar(radius: 11, child: Text('${app.totalCount}', style: const TextStyle(fontSize: 11))),
+              CircleAvatar(
+                radius: 11,
+                child: Text(
+                  '${app.totalCount}',
+                  style: const TextStyle(fontSize: 11),
+                ),
+              ),
             ],
           ),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => SenderListScreen(packageName: app.packageName, appLabel: app.appLabel),
+              builder: (_) => SenderListScreen(
+                packageName: app.packageName,
+                appLabel: app.appLabel,
+              ),
             ),
           ),
         );

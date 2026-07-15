@@ -33,10 +33,10 @@ class NotiForegroundService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "ZeView - Perekaman Notifikasi",
+                "Zeview - Perekaman Notifikasi",
                 NotificationManager.IMPORTANCE_MIN
             ).apply {
-                description = "Menjaga ZeView tetap merekam notifikasi di latar belakang"
+                description = "Menjaga Zeview tetap merekam notifikasi di latar belakang"
                 setShowBadge(false)
             }
             manager.createNotificationChannel(channel)
@@ -49,7 +49,7 @@ class NotiForegroundService : Service() {
         )
 
         val notification: Notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("ZeView aktif")
+            .setContentTitle("Zeview aktif")
             .setContentText("Merekam notifikasi di latar belakang")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setPriority(NotificationCompat.PRIORITY_MIN)

@@ -11,7 +11,8 @@ class OnboardingScreen extends StatefulWidget {
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> with WidgetsBindingObserver {
+class _OnboardingScreenState extends State<OnboardingScreen>
+    with WidgetsBindingObserver {
   bool _checking = false;
 
   @override
@@ -57,16 +58,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> with WidgetsBinding
               const Icon(Icons.notifications_active_outlined, size: 72),
               const SizedBox(height: 24),
               Text(
-                'Selamat datang di ZeView',
+                'Selamat datang di Zeview',
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
               const Text(
-                'ZeView merekam semua notifikasi yang masuk ke HP kamu, dikelompokkan per '
+                'Zeview merekam semua notifikasi yang masuk ke HP kamu, dikelompokkan per '
                 'aplikasi, lengkap dengan tanggal dan jam yang akurat — termasuk notifikasi yang '
                 'sudah kamu hapus atau pesan WhatsApp yang dihapus pengirim sebelum sempat kamu baca.\n\n'
-                'Untuk itu, ZeView butuh izin "Notification access" dari sistem Android. '
+                'Untuk itu, Zeview butuh izin "Notification access" dari sistem Android. '
                 'Semua data disimpan lokal di HP kamu.',
                 textAlign: TextAlign.center,
               ),
@@ -80,7 +81,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> with WidgetsBinding
               OutlinedButton(
                 onPressed: _checking ? null : _checkPermission,
                 child: _checking
-                    ? const SizedBox(height: 18, width: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                    ? const SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
                     : const Text('Sudah saya aktifkan, cek ulang'),
               ),
             ],

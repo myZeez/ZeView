@@ -12,7 +12,8 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> with WidgetsBindingObserver {
+class _SettingsScreenState extends State<SettingsScreen>
+    with WidgetsBindingObserver {
   bool? _listenerEnabled;
   bool? _batteryExempt;
 
@@ -48,7 +49,9 @@ class _SettingsScreenState extends State<SettingsScreen> with WidgetsBindingObse
   Widget build(BuildContext context) {
     final repo = context.watch<NotificationRepository>();
     final lastCaptured = repo.lastCapturedTime;
-    final isStale = lastCaptured != null && DateTime.now().difference(lastCaptured) > const Duration(hours: 6);
+    final isStale =
+        lastCaptured != null &&
+        DateTime.now().difference(lastCaptured) > const Duration(hours: 6);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Pengaturan')),
@@ -56,38 +59,58 @@ class _SettingsScreenState extends State<SettingsScreen> with WidgetsBindingObse
         children: [
           SwitchListTile(
             title: const Text('Akses Notifikasi'),
-            subtitle: Text(_listenerEnabled == true ? 'Aktif' : 'Belum aktif — wajib untuk merekam notifikasi'),
+            subtitle: Text(
+              _listenerEnabled == true
+                  ? 'Aktif'
+                  : 'Belum aktif — wajib untuk merekam notifikasi',
+            ),
             value: _listenerEnabled ?? false,
             onChanged: (_) => NativeBridge.openListenerSettings(),
           ),
           SwitchListTile(
             title: const Text('Bebas Optimasi Baterai'),
-            subtitle: Text(_batteryExempt == true
-                ? 'Aktif — lebih tahan dari sistem mematikan aplikasi'
-                : 'Nonaktif — sistem berpotensi mematikan perekaman di latar belakang'),
+            subtitle: Text(
+              _batteryExempt == true
+                  ? 'Aktif — lebih tahan dari sistem mematikan aplikasi'
+                  : 'Nonaktif — sistem berpotensi mematikan perekaman di latar belakang',
+            ),
             value: _batteryExempt ?? false,
             onChanged: (_) => NativeBridge.openBatteryOptimizationSettings(),
           ),
           const Divider(),
           ListTile(
-            leading: Icon(isStale ? Icons.warning_amber_rounded : Icons.check_circle_outline,
-                color: isStale ? Colors.orange : Colors.green),
+            leading: Icon(
+              isStale
+                  ? Icons.warning_amber_rounded
+                  : Icons.check_circle_outline,
+              color: isStale ? Colors.orange : Colors.green,
+            ),
             title: const Text('Notifikasi terakhir direkam'),
-            subtitle: Text(lastCaptured != null
-                ? '${formatExactDateTime(lastCaptured)}${isStale ? '\nSudah lama tidak ada notifikasi baru — periksa apakah perekaman masih berjalan.' : ''}'
-                : 'Belum ada data'),
+            subtitle: Text(
+              lastCaptured != null
+                  ? '${formatExactDateTime(lastCaptured)}${isStale ? '\nSudah lama tidak ada notifikasi baru — periksa apakah perekaman masih berjalan.' : ''}'
+                  : 'Belum ada data',
+            ),
             isThreeLine: isStale,
           ),
           ListTile(
             leading: const Icon(Icons.sync),
             title: const Text('Sambungkan ulang layanan perekaman'),
-            subtitle: const Text('Gunakan jika perekaman berhenti tanpa alasan jelas'),
+            subtitle: const Text(
+              'Gunakan jika perekaman berhenti tanpa alasan jelas',
+            ),
             onTap: () async {
               final ok = await NativeBridge.requestRebind();
               await NativeBridge.startForegroundService();
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(ok ? 'Berhasil meminta sambung ulang' : 'Gagal meminta sambung ulang')),
+                  SnackBar(
+                    content: Text(
+                      ok
+                          ? 'Berhasil meminta sambung ulang'
+                          : 'Gagal meminta sambung ulang',
+                    ),
+                  ),
                 );
               }
             },
@@ -96,7 +119,7 @@ class _SettingsScreenState extends State<SettingsScreen> with WidgetsBindingObse
             padding: EdgeInsets.all(16),
             child: Text(
               'Catatan: jika HP kamu bermerek Xiaomi, Oppo, Vivo, atau sejenisnya, aktifkan juga '
-              '"Autostart" / "Mulai otomatis" untuk ZeView di pengaturan baterai bawaan HP, karena '
+              '"Autostart" / "Mulai otomatis" untuk Zeview di pengaturan baterai bawaan HP, karena '
               'sistem tersebut sering mematikan aplikasi latar belakang secara agresif.',
               style: TextStyle(color: Colors.grey),
             ),
